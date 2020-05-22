@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import Username from './Username';
+import Password from './Password';
+import SubmitButton from './SubmitButton';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+    }
+  }
 
-export default App;
+  setName(username) {
+    this.setState({
+      username
+    });
+  }
+
+  setPassword(password) {
+    this.setState({
+      password
+    });
+  }
+
+  displaySubmit() {
+    alert(`submitted username: ${this.state.username} and password: ${this.state.password}`);
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Log in</h1>
+          <form className="loginForm">
+            <Username username={this.state.username} handleUsername={name => this.setName(name)}/>
+            <Password password={this.state.password} handlePassword={password => this.setPassword(password)}/>
+            <SubmitButton username={this.state.username} password={this.state.password} handleSubmit={e => this.displaySubmit(e)}/>           
+          </form>     
+        </header>
+      </div>
+    );
+  }
+}
